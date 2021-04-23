@@ -1,12 +1,16 @@
 {
   "name": "color-gradient-converter",
-  "version": "0.0.0-beta.1",
+  "version": "0.0.0-beta.2",
   "description": "Convert single-color to color-gradient",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/linwrui/color-gradient-converter.git"
