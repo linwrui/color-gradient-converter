@@ -12,7 +12,7 @@ export interface LinearGradientConvertOptions {
    */
   angle?: number;
   /**
-   *
+   * 
    *
    * @type {ColorTransformTargets}
    * @memberof LinearGradientConvertOptions
