@@ -1,0 +1,32 @@
+{
+  "name": "color-gradient-converter",
+  "version": "0.0.0",
+  "description": "Convert single-color to color-gradient",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linwrui/color-gradient-converter.git"
+  },
+  "keywords": [
+    "color",
+    "gradient",
+    "single-color-to-gradient"
+  ],
+  "author": "linwrui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linwrui/color-gradient-converter/issues"
+  },
+  "homepage": "https://github.com/linwrui/color-gradient-converter#readme",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@types/d3-color": "^2.0.1",
+    "d3-color": "^2.0.0"
+  }
+}
