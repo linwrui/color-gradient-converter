@@ -19,7 +19,7 @@ export interface ColorTransformTarget {
    * Similarly, the last color will continue to the 100% mark,
    * or be at the 100% mark if no length has been declared on that last stop.
    *
-   * @type {string}
+   * @type {string} from 0%-25%
    * @memberof ColorTransformTarget
    */
   markPercent?: string;
@@ -28,9 +28,9 @@ export interface ColorTransformTarget {
    * Use for calc next color stop with hsl
    *
    * @type {{
-   *         h?: ColorTransformValue;
-   *         s?: ColorTransformValue;
-   *         l?: ColorTransformValue;
+   *         h?: ColorTransformValue; // from 0-360
+   *         s?: ColorTransformValue; // from 0-1
+   *         l?: ColorTransformValue; // from 0-1
    *     }}
    * @memberof ColorTransformTarget
    */
@@ -44,9 +44,9 @@ export interface ColorTransformTarget {
    * Use for calc next color stop with rgb
    *
    * @type {{
-   *         r?: ColorTransformValue;
-   *         g?: ColorTransformValue;
-   *         a?: ColorTransformValue;
+   *         r?: ColorTransformValue; // from 0-255
+   *         g?: ColorTransformValue; // from 0-255
+   *         a?: ColorTransformValue; // from 0-255
    *     }}
    * @memberof ColorTransformTarget
    */
@@ -63,40 +63,52 @@ export function transformColor(
   baseColor: string,
   transformTarget: ColorTransformTarget
 ): HSLColor {
-  const transform = (source: number, to: ColorTransformValue | undefined) => {
+  const transform = (source: number, to: ColorTransformValue | undefined, min?: number, max?: number) => {
+    let target: number | undefined;
     if (typeof to === "string") {
-      if (to.startsWith("+")) {
-        return source + Number(to.match(/\+(.*)/)?.[1]);
-      }
-      if (to.startsWith("-")) {
-        return source - Number(to.match(/-(.*)/)?.[1]);
+      const transformValue = Number(to);
+      if(Number.isFinite(transformValue)) {
+        target = to.startsWith("+") || to.startsWith("-") ? source + transformValue : transformValue;
       }
     } else if (typeof to === "number") {
-      return to;
+      target = to;
     }
-    return source;
+    if (target === undefined) {
+      target = source;
+    }
+    if (min !== undefined && target < min) {
+      return min;
+    } else if (max !== undefined && target > max) {
+      return max;
+    } else {
+      return target;
+    }
   };
   let color: HSLColor = hsl(baseColor);
   if (transformTarget.hslTransformValue) {
     const hslColor = color;
     color = hsl(
-        transform(hslColor.h, transformTarget.hslTransformValue.h),
-        transform(hslColor.s, transformTarget.hslTransformValue.s),
-        transform(hslColor.l, transformTarget.hslTransformValue.l),
+        transform(hslColor.h, transformTarget.hslTransformValue.h, 0, 360),
+        transform(hslColor.s, transformTarget.hslTransformValue.s, 0, 1),
+        transform(hslColor.l, transformTarget.hslTransformValue.l, 0, 1),
         color.opacity
     );
   }
   if (transformTarget.rgbTransformValue) {
     const rgbColor = rgb(color || baseColor);
     color = hsl(rgb(
-        transform(rgbColor.r, transformTarget.rgbTransformValue.r),
-        transform(rgbColor.g, transformTarget.rgbTransformValue.g),
-        transform(rgbColor.b, transformTarget.rgbTransformValue.b),
+        transform(rgbColor.r, transformTarget.rgbTransformValue.r, 0, 255),
+        transform(rgbColor.g, transformTarget.rgbTransformValue.g, 0, 255),
+        transform(rgbColor.b, transformTarget.rgbTransformValue.b, 0, 255),
         color.opacity
     ));
   }
   if (transformTarget.opacity) {
-    color.opacity = transform(color.opacity, transformTarget.opacity);
+    color.opacity = transform(color.opacity, transformTarget.opacity, 0, 1);
+  }
+  if (transformTarget.markPercent) {
+    const hslToString = color.toString.bind(color);
+    color.toString = () => `${hslToString()} ${transformTarget.markPercent}`;
   }
   return color;
 }

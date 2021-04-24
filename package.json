@@ -1,9 +1,10 @@
 {
   "name": "color-gradient-converter",
-  "version": "0.0.0-beta.2",
+  "version": "0.0.1-beta.1",
   "description": "Convert single-color to color-gradient",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test-c": "jest --coverage",
     "build": "tsc"
   },
   "main": "lib/index.js",
@@ -27,10 +28,16 @@
   },
   "homepage": "https://github.com/linwrui/color-gradient-converter#readme",
   "devDependencies": {
-    "typescript": "^4.2.4"
+    "@types/jest": "^26.0.22",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
+    "typescript": "^3.2.0"
   },
   "dependencies": {
     "@types/d3-color": "^2.0.1",
     "d3-color": "^2.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

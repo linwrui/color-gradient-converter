@@ -7,7 +7,7 @@ export interface LinearGradientConvertOptions {
   /**
    * The gradient line's angle of direction. A value of 0deg is equivalent to to top; increasing values rotate clockwise from there.
    *
-   * @type {number}
+   * @type {number} from 0-360
    * @memberof LinearGradientConvertOptions
    */
   angle?: number;
@@ -32,6 +32,6 @@ export function colorToLinearGradient(
   baseColor: string,
   convertOptions: LinearGradientConvertOptions
 ) {
-  const colorStops = convertOptions.colorStopTransformTargets?.map((x, index) => `${transformColor(baseColor, x)} ${convertOptions.colorStopTransformTargets?.[index].markPercent || ""}`);
+  const colorStops = convertOptions.colorStopTransformTargets?.map((x) => transformColor(baseColor, x));
   return `linear-gradient(${convertOptions.angle}deg, ${colorStops?.join(', ')})`;
 }
