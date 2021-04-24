@@ -22,9 +22,9 @@ console.log(linearGradient) // output： "linear-gradient(135deg, rgba(255, 0, 0
 ```
 
 # DEMO
+* code: https://github.com/linwrui/my-react-app/blob/main/src/pages/color-gradient/index.tsx
+
+* page: https://my-react-app-flax.vercel.app/#/color-gradient
+
+* snapshot: 
 ![图 1](images/f571da30de0a2269ba4af32bf2435cf04014333e925f04ae5c06e39c77961b93.png)  
-
-
-> code: https://github.com/linwrui/my-react-app/blob/main/src/pages/color-gradient/index.tsx
-
-> page: https://my-react-app-flax.vercel.app/#/color-gradient

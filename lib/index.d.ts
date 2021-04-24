@@ -1,2 +1,2 @@
-export * from "./color-transform-target";
-export * from "./linear-gradient-converter";
+export * from "./src/color-transform-target";
+export * from "./src/linear-gradient-converter";

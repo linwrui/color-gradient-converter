@@ -1,4 +1,4 @@
-import { colorToLinearGradient } from "../src";
+import { colorToLinearGradient } from "..";
 
 test("colorToLinearGradient", () => {
     // red: rgb(255, 0, 0)
