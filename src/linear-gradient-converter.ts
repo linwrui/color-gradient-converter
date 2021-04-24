@@ -12,7 +12,7 @@ export interface LinearGradientConvertOptions {
    */
   angle?: number;
   /**
-   * 
+   * use for calc color stops
    *
    * @type {ColorTransformTargets}
    * @memberof LinearGradientConvertOptions
