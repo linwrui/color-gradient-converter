@@ -1,6 +1,6 @@
 {
   "name": "color-gradient-converter",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "Convert single-color to color-gradient",
   "scripts": {
     "test": "jest",
