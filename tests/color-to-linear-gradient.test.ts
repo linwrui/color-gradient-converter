@@ -1,4 +1,4 @@
-import { colorToLinearGradient } from "..";
+import { colorToLinearGradient } from "../src/linear-gradient-converter";
 
 test("colorToLinearGradient", () => {
     // red: rgb(255, 0, 0)
