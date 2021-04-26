@@ -17,7 +17,7 @@ export interface ColorTransformTarget {
      * Similarly, the last color will continue to the 100% mark,
      * or be at the 100% mark if no length has been declared on that last stop.
      *
-     * @type {string} from 0%-25%
+     * @type {string} from 0%-100%
      * @memberof ColorTransformTarget
      */
     markPercent?: string;
