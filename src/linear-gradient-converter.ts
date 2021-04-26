@@ -1,7 +1,7 @@
 import {
   ColorTransformTargets,
   transformColor,
-} from "./color-transform-target";
+} from "./color-transformer";
 
 export interface LinearGradientConvertOptions {
   /**

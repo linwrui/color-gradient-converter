@@ -1,4 +1,4 @@
-import { transformColor } from "../src/color-transform-target";
+import { transformColor } from "../src/color-transformer";
 
 test('transformOpacity', () => {
     expect(transformColor("red", {

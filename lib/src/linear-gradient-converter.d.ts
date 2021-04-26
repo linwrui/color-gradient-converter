@@ -1,4 +1,4 @@
-import { ColorTransformTargets } from "./color-transform-target";
+import { ColorTransformTargets } from "./color-transformer";
 export interface LinearGradientConvertOptions {
     /**
      * The gradient line's angle of direction. A value of 0deg is equivalent to to top; increasing values rotate clockwise from there.
