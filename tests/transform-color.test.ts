@@ -55,3 +55,19 @@ test('transformRgb', () => {
         opacity: 0.8
     });
 });
+test('transformFn', ()=>{
+    // red: rgb(255, 0, 0)
+    // red: hsl(0deg 100% 50%)
+    expect(transformColor("rgba(255, 0, 0, 0.8)", {
+        opacity: 0.4,
+        transformFn: (baseColor, transformTarget) => {
+            transformTarget.opacity = Number((transformTarget.opacity * baseColor.opacity).toFixed(2));
+            return transformTarget;
+        }
+    })).toEqual({
+        h: 0,
+        s: 1,
+        l: 0.5,
+        opacity: 0.32
+    });
+})

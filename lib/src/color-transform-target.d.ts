@@ -40,6 +40,8 @@ export interface ColorTransformTarget {
     /**
      * Use for calc next color stop with rgb
      *
+     * Priority lower than hslTransformValue
+     *
      * @type {{
      *         r?: ColorTransformValue; // from 0-255
      *         g?: ColorTransformValue; // from 0-255
@@ -52,6 +54,12 @@ export interface ColorTransformTarget {
         g?: ColorTransformValue;
         b?: ColorTransformValue;
     };
+    /**
+     * Provide a function for specified transform color;
+     *
+     * Priority lower than hslTransformValue and rgbTransformValue
+     */
+    transformFn?: (baseColor: HSLColor, transformTarget: HSLColor) => undefined | HSLColor;
 }
 export declare type ColorTransformTargets = ColorTransformTarget[];
 export declare function transformColor(baseColor: string, transformTarget: ColorTransformTarget): HSLColor;

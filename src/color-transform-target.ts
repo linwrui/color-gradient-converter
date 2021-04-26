@@ -43,6 +43,8 @@ export interface ColorTransformTarget {
   /**
    * Use for calc next color stop with rgb
    *
+   * Priority lower than hslTransformValue
+   * 
    * @type {{
    *         r?: ColorTransformValue; // from 0-255
    *         g?: ColorTransformValue; // from 0-255
@@ -55,6 +57,13 @@ export interface ColorTransformTarget {
     g?: ColorTransformValue;
     b?: ColorTransformValue;
   };
+
+  /**
+   * Provide a function for specified transform color;
+   * 
+   * Priority lower than hslTransformValue and rgbTransformValue
+   */
+  transformFn?: (baseColor: HSLColor, transformTarget: HSLColor) => undefined | HSLColor;
 }
 
 export type ColorTransformTargets = ColorTransformTarget[];
@@ -105,6 +114,9 @@ export function transformColor(
   }
   if (transformTarget.opacity) {
     color.opacity = transform(color.opacity, transformTarget.opacity, 0, 1);
+  }
+  if (transformTarget.transformFn) {
+    color = transformTarget.transformFn(hsl(baseColor), color) || color;
   }
   if (transformTarget.markPercent) {
     const hslToString = color.toString.bind(color);
