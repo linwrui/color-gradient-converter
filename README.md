@@ -8,9 +8,34 @@ npm i color-gradient-converter
 yarn add color-gradient-converter
 ```
 
-# Usage
-> see [color-transformer](./src/color-transformer.ts) for more info.
+# DEMO
+* code: https://github.com/linwrui/my-react-app/blob/main/src/pages/color-gradient/index.tsx
 
+* page: https://my-react-app-flax.vercel.app/#/color-gradient
+
+* snapshot: 
+![图 1](images/f571da30de0a2269ba4af32bf2435cf04014333e925f04ae5c06e39c77961b93.png)
+
+# Usage
+
+## Sample
+> you can also refer to test samples: [tests](./tests).
+``` typescript
+import { colorToLinearGradient } from "color-gradient-converter";
+
+const linearGradient = colorToLinearGradient("red", {
+    angle: 135,
+    colorStopTransformTargets: [
+        { opacity: 0.1 },
+        { opacity: 0.6, rgbTransformValue: { g: "+25" }, markPercent: "25%" },
+        { opacity: 0.1 },
+    ],
+});
+console.log(linearGradient) // output： "linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 25, 0, 0.6) 25%, rgba(255, 0, 0, 0.1))"
+```
+
+## Interface
+### [color-transformer](./src/color-transformer.ts)
 ``` typescript
 /**
  * If the value is a numeric or a purely numeric character, the associated parameter uses the value as the absolute value
@@ -81,23 +106,56 @@ export interface ColorTransformTarget {
 export function transformColor(baseColor: string, transformTarget: ColorTransformTarget): HSLColor
 ```
 
-## Sample
-``` javascript
-const linearGradient = colorToLinearGradient("red", {
-    angle: 135,
-    colorStopTransformTargets: [
-        { opacity: 0.1 },
-        { opacity: 0.6, rgbTransformValue: { g: "+25" }, markPercent: "25%" },
-        { opacity: 0.1 },
-    ],
-});
-console.log(linearGradient) // output： "linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 25, 0, 0.6) 25%, rgba(255, 0, 0, 0.1))"
+### [linear-gradient-converter](./src/linear-gradient-converter.ts)
+``` typescript
+/**
+ * see https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient()
+ *
+ * @export
+ * @interface LinearGradientConvertOptions
+ */
+export interface LinearGradientConvertOptions {
+  /**
+   * The gradient line's angle of direction. A value of 0deg is equivalent to to top; increasing values rotate clockwise from there.
+   *
+   * @type {number} from 0-360
+   * @memberof LinearGradientConvertOptions
+   */
+  angle?: number;
+
+  /**
+   * The position of the gradient line's starting point. 
+   * If specified, it consists of the word to and up to two keywords: one indicates the horizontal side (left or right), and the other the vertical side (top or bottom). The order of the side keywords does not matter. 
+   * If unspecified, it defaults to to bottom.
+   * 
+   * The values to top, to bottom, to left, and to right are equivalent to the angles 0deg, 180deg, 270deg, and 90deg, respectively. 
+   * The other values are translated into an angle.
+   *
+   * PS: If both 'angle' and 'sideOrCorner' exist, use 'angle' preferentially
+   * 
+   * see https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient()
+   * 
+   * @type {string}
+   * @memberof LinearGradientConvertOptions
+   */
+  sideOrCorner?: "to top left" | "to left" | "to bottom left" | "to bottom" | "to bottom right" | "to right" | "to top right" | "to top";
+
+  /**
+   * use for calc color stops
+   *
+   * @type {ColorTransformTargets}
+   * @memberof LinearGradientConvertOptions
+   */
+  colorStopTransformTargets: ColorTransformTargets;
+}
+
+/**
+ * convert color to linearGradient
+ *
+ * @export
+ * @param {string} baseColor
+ * @param {LinearGradientConvertOptions} convertOptions
+ * @returns
+ */
+export function colorToLinearGradient( baseColor: string, convertOptions: LinearGradientConvertOptions)
 ```
-
-# DEMO
-* code: https://github.com/linwrui/my-react-app/blob/main/src/pages/color-gradient/index.tsx
-
-* page: https://my-react-app-flax.vercel.app/#/color-gradient
-
-* snapshot: 
-![图 1](images/f571da30de0a2269ba4af32bf2435cf04014333e925f04ae5c06e39c77961b93.png)  
