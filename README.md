@@ -18,7 +18,7 @@ yarn add color-gradient-converter
 
 # Usage
 
-## Sample
+## Example
 > you can also refer to test samples: [tests](./tests).
 ``` typescript
 import { colorToLinearGradient } from "color-gradient-converter";
