@@ -27,7 +27,13 @@ test('transformOpacity', () => {
     }).opacity).toBe(0.9);
 });
 test('transformTransparent', () => {
+    expect(transformColor("rgba(36,96,192,0)", {
+        opacity: "0.8"
+    }).formatRgb()).toBe("rgba(36, 96, 192, 0.8)")
     expect(transformColor("rgba(255, 255, 255, 0)", {
+        opacity: "0.8"
+    }).formatRgb()).toBe("rgba(255, 255, 255, 0.8)");
+    expect(transformColor("RGBA(255, 255,255, 0)", {
         opacity: "0.8"
     }).formatRgb()).toBe("rgba(255, 255, 255, 0.8)");
     expect(transformColor("rgba(255, 255, 255, 0)", {

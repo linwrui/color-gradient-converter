@@ -96,12 +96,12 @@ export function transformColor(
   let color: HSLColor = hsl(baseColor);
   if (!Number.isFinite(color.h)) {
     // handle transfrom hsl exception - d3-color BUG
-    const rgbaExp = /^[rR][gG][Bb][Aa]?[\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?),?[\s]*(0\.\d{1,2}|1|0)?[\)]{1}$/
+    const rgbaExp = /^(rgb)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*%?,\s*(\d{1,3})\s*%?(?:,\s*(\d+(?:\.\d+)?)\s*)?\)$/i
     const hexExp = /^#([0-9a-fA-F]{6})([0-9]{1,2})$/;
     if (rgbaExp.test(baseColor)) {
       const rgbaMatch = baseColor.match(rgbaExp);
-      color = hsl(`rgba(${rgbaMatch![1].trim()}${rgbaMatch![2].trim()}, ${rgbaMatch![3].trim()}, 1)`);
-      color.opacity = Number(rgbaMatch![4]);
+      color = hsl(`rgba(${rgbaMatch![2].trim()}, ${rgbaMatch![3].trim()}, ${rgbaMatch![4].trim()}, 1)`);
+      color.opacity = Number(rgbaMatch![5]);
     } else if (hexExp.test(baseColor)) {
       const hexMatch = baseColor.match(hexExp);
       color = hsl(`#${hexMatch![1]}`);
