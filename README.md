@@ -20,7 +20,9 @@ yarn add color-gradient-converter
 
 ## Example
 > you can also refer to test samples: [tests](./tests).
-``` typescript
+
+### ToLinearGradient
+``` javascript
 import { colorToLinearGradient } from "color-gradient-converter";
 
 const linearGradient = colorToLinearGradient("red", {
@@ -34,8 +36,16 @@ const linearGradient = colorToLinearGradient("red", {
 console.log(linearGradient) // output： "linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 25, 0, 0.6) 25%, rgba(255, 0, 0, 0.1))"
 ```
 
-## Interface
-### [color-transformer](./src/color-transformer.ts)
+### TransformColor
+``` javascript
+import { colorToLinearGradient } from "color-gradient-converter";
+
+const color = transformColor('red', { opacity: 0.4, rgbTransformValue: { g: "+25" } })
+console.log(color.formatRgb()) // output： "rgba(255, 25, 0, 0.6)"
+```
+
+## API
+### ColorTransformTarget
 ``` typescript
 /**
  * If the value is a numeric or a purely numeric character, the associated parameter uses the value as the absolute value
@@ -102,11 +112,14 @@ export interface ColorTransformTarget {
    */
   transformFn?: (baseColor: HSLColor, transformTarget: HSLColor) => undefined | HSLColor;
 }
+```
 
+### [transformColor](./src/color-transformer.ts) Transform color with specified transform value
+``` typescript
 export function transformColor(baseColor: string, transformTarget: ColorTransformTarget): HSLColor
 ```
 
-### [linear-gradient-converter](./src/linear-gradient-converter.ts)
+### [colorToLinearGradient](./src/linear-gradient-converter.ts) Convert color to linear gradient css string
 ``` typescript
 /**
  * see https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient()
