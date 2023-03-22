@@ -38,7 +38,7 @@ console.log(linearGradient) // output： "linear-gradient(135deg, rgba(255, 0, 0
 
 ### TransformColor
 ``` javascript
-import { colorToLinearGradient } from "color-gradient-converter";
+import { transformColor } from "color-gradient-converter";
 
 const color = transformColor('red', { opacity: 0.4, rgbTransformValue: { g: "+25" } })
 console.log(color.formatRgb()) // output： "rgba(255, 25, 0, 0.6)"
